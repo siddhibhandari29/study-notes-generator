@@ -1,0 +1,254 @@
+:root {
+  --board: #223B2E;
+  --board-dark: #1B2F24;
+  --chalk: #F5F0E6;
+  --chalk-dim: #C9CFC5;
+  --yellow: #E8C547;
+  --pink: #E6A4B4;
+  --card: #2C4A3A;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--board);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(245,240,230,0.03) 0, transparent 40%),
+    radial-gradient(circle at 85% 60%, rgba(245,240,230,0.025) 0, transparent 45%);
+  color: var(--chalk);
+  font-family: 'IBM Plex Sans', sans-serif;
+  line-height: 1.5;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  padding: 4.5rem 1.5rem 3rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-family: 'Kalam', cursive;
+  font-weight: 700;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  margin: 0 0 1.2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.chalk-underline {
+  display: block;
+  width: 60%;
+  max-width: 320px;
+  height: 14px;
+  margin: 0.4rem auto 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20'%3E%3Cpath d='M2 14 Q 30 2, 60 12 T 120 10 T 198 13' stroke='%23E8C547' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.hero-sub {
+  max-width: 520px;
+  margin: 0 auto;
+  color: var(--chalk-dim);
+  font-size: 1.02rem;
+}
+
+/* ---------- Layout ---------- */
+.board {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px dashed rgba(245, 240, 230, 0.25);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+}
+
+.panel-label {
+  font-family: 'Kalam', cursive;
+  color: var(--yellow);
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.9rem;
+}
+
+/* ---------- Input ---------- */
+.notebook-input {
+  width: 100%;
+  background: var(--board-dark);
+  color: var(--chalk);
+  border: 1px solid rgba(245, 240, 230, 0.15);
+  border-radius: 8px;
+  padding: 1rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.98rem;
+  resize: vertical;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 1.6em,
+    rgba(245, 240, 230, 0.06) 1.7em
+  );
+  line-height: 1.7em;
+}
+
+.notebook-input:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.1rem;
+}
+
+.format-toggle {
+  display: flex;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px dashed rgba(245, 240, 230, 0.4);
+  background: transparent;
+  color: var(--chalk);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn-primary {
+  background: var(--yellow);
+  color: var(--board-dark);
+  border-style: solid;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.btn-primary:hover { background: #f0d066; }
+
+.btn-ghost:hover { background: rgba(245, 240, 230, 0.08); }
+
+.btn-toggle.active {
+  background: rgba(232, 197, 71, 0.18);
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+@media (max-width: 560px) {
+  .controls { flex-direction: column; align-items: stretch; }
+  .format-toggle, .btn-primary { margin-left: 0; }
+}
+
+.error-msg {
+  color: var(--pink);
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+}
+
+/* ---------- Notes output ---------- */
+.notes-output ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.notes-output li {
+  margin-bottom: 0.6rem;
+}
+
+.notes-output p {
+  margin: 0;
+}
+
+.hint {
+  color: var(--chalk-dim);
+  font-size: 0.88rem;
+  margin-top: -0.4rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Flashcards ---------- */
+.flashcard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.flashcard {
+  perspective: 1000px;
+  height: 150px;
+  cursor: pointer;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  border: 1px dashed rgba(245, 240, 230, 0.35);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.92rem;
+}
+
+.flashcard-front {
+  background: var(--board-dark);
+  font-family: 'Kalam', cursive;
+  font-size: 1.15rem;
+  color: var(--yellow);
+}
+
+.flashcard-back {
+  background: rgba(232, 197, 71, 0.12);
+  transform: rotateY(180deg);
+  color: var(--chalk);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  text-align: center;
+  color: var(--chalk-dim);
+  font-size: 0.82rem;
+  padding-bottom: 2.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flashcard-inner { transition: none; }
+  .btn { transition: none; }
+}
